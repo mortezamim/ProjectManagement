@@ -27,8 +27,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWor
 
     public DbSet<Order> Orders { get; set; }
 
-    public DbSet<OrderSummary> OrderSummaries { get; set; }
-
     public DbSet<Product> Products { get; set; }
 
     public DbSet<LineItem> LineItems { get; set; }
@@ -49,7 +47,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWor
             .ToList();
 
         var result = await base.SaveChangesAsync(cancellationToken);
-        
+
         foreach (var domainEvent in domainEvents)
         {
             await _publisher.Publish(domainEvent, cancellationToken);

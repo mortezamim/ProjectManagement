@@ -13,7 +13,5 @@ public interface IApplicationDbContext
 
     DbSet<LineItem> LineItems { get; set; }
 
-    DbSet<OrderSummary> OrderSummaries { get; set; }
-
     DbSet<Product> Products { get; set; }
 }
