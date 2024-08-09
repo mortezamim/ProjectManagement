@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  opm.api:
+    image: ${DOCKER_REGISTRY-}webapi
+    container_name: opm-api
+    build:
+      context: .
+      dockerfile: Web.API/Dockerfile
+
+  opm.db:
+    image: postgres:latest
+    container_name: opm-db
+    environment:
+      - POSTGRES_DB=opm
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
