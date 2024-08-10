@@ -7,13 +7,5 @@ build/
 packages/
 *.pubxml.user
 .local-chromium/
-.DO_NOT_DELETE__DB_BACKUPS__/
-__PHARMACIES_BACKUP__/
-XlsFiles/
-Wpf/Wpf.AIO/Setup/DavachiAIO-Setup/Release/
-Web/API.Davachi/DVC.lic
-Web/API.TaminProxyManager/Setup/Davachi Proxy Manager/Release/Davachi Proxy Manager.msi
-Web/API.TaminProxyManager/Setup/Davachi Proxy Manager/Release/setup.exe
-Web/API.DavachiHQ/seriLogs/
-Web/API.Davachi/seriLogs/
 tmpWorkingPath/
+seriLogs/
