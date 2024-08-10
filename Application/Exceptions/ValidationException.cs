@@ -1,4 +1,6 @@
-﻿namespace Application.Exceptions;
+﻿using FluentValidation.Results;
+
+namespace Application.Exceptions;
 
 public class ValidationException : Exception
 {
@@ -6,6 +8,15 @@ public class ValidationException : Exception
         : base("Validation failed")
     {
         Errors = errors;
+    }
+    public ValidationException(IReadOnlyCollection<ValidationFailure> errors)
+        : base("Validation failed")
+    {
+        Errors = errors
+            .Select(validationFailure => new ValidationError(
+                validationFailure.PropertyName,
+                validationFailure.ErrorMessage))
+            .ToList();
     }
 
     public IReadOnlyCollection<ValidationError> Errors { get; }

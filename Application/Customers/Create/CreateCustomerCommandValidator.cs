@@ -7,6 +7,10 @@ public sealed class CreateCustomerCommandValidator : AbstractValidator<CreateCus
 {
     public CreateCustomerCommandValidator(ICustomerRepository customerRepository)
     {
+        RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required.")
+            .EmailAddress()
+            .WithMessage("Email is not in a valid format.");
+
         RuleFor(c => c.Email).MustAsync(async (email, _) =>
         {
             return await customerRepository.IsEmailUniqueAsync(email);
