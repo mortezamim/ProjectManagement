@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc.Versioning;
+﻿using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace Web.API.Extensions;
 
@@ -36,5 +35,14 @@ public static class ApiVersionExtensions
                 options.SubstituteApiVersionInUrl = true;
                 //options.ApiVersionParameterSource = new UrlSegmentApiVersionReader();
             });
+
+        //builder.Services.AddApiVersioning(opt =>
+        //{
+        //    opt.ReportApiVersions = true;
+        //    opt.AssumeDefaultVersionWhenUnspecified = true;
+        //    opt.DefaultApiVersion = new ApiVersion(1, 0);
+        //    opt.ApiVersionReader = new HeaderApiVersionReader("api-version"); //hem header versioning 
+        //    opt.ApiVersionReader = new QueryStringApiVersionReader("api-version"); //hem de query string versioning
+        //});
     }
 }
