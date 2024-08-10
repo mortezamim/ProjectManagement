@@ -13,6 +13,11 @@ The use of a mediator pattern in this application enables a decoupled communicat
 - Fluent Validation
 - Postgres
 
+# Additional features
+
+- PreConfigured Quartz for background jobs
+- Implement domain events & mediator -> publisher
+
 # Develop setup
 To get started, follow the below steps:
 
