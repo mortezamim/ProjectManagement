@@ -1,6 +1,6 @@
 ﻿using Application.Helpers;
+using Application.Project.Create;
 using Domain.User;
-using Domain.User.register;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,14 +42,16 @@ namespace Web.API.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         [MapToApiVersion("1")]
         [HttpPost(Name = nameof(Create))]
-        public async Task<IActionResult> Create([FromBody] RegisterUserRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateProjectRequest request)
         {
             var userId = Utils.GetUserIdFromToken(User);
 
+            var command = new CreateProjectCommand(userId, request.Name, request.Description);
+
+            var res = await sender.Send(command);
+
             return Ok("Created");
         }
-        //=> CreatedAtAction(nameof(Login),
-        //    await sender.Send(new RegisterUserCommand(request.Username, request.Password, request.FirstName, request.LastName)));
 
     }
 }

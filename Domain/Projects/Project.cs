@@ -17,11 +17,13 @@ public class Project : Entity
 
     public IReadOnlyList<TaskDetail> Tasks => _tasks.ToList();
 
-    public static Project Create(Guid userId)
+    public static Project Create(Guid userId, string name, string description)
     {
         var project = new Project
         {
             Id = new ProjectId(Guid.NewGuid()),
+            Name = name,
+            Description = description,
             UserId = userId
         };
 
