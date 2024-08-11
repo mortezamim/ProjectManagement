@@ -2,6 +2,8 @@
 using Domain.Customers;
 using Domain.Orders;
 using Domain.Products;
+using Domain.Projects;
+using Domain.Task;
 using Domain.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,10 @@ public static class DependencyInjection
             sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IProjectRepository, ProjectRepository>();
+
+        services.AddScoped<ITaskRepository, TaskRepository>();
 
         services.AddScoped<ICustomerRepository, CustomerRepository>();
 

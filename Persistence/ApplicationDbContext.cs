@@ -3,6 +3,8 @@ using Domain.Customers;
 using Domain.Orders;
 using Domain.Primitives;
 using Domain.Products;
+using Domain.Projects;
+using Domain.Task;
 using Domain.User;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWor
     }
 
     public DbSet<User> Users { get; set; }
+
+    public DbSet<Project> Projects { get; set; }
+
+    public DbSet<TaskDetail> Tasks { get; set; }
 
     public DbSet<Customer> Customers { get; set; }
 

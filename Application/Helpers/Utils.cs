@@ -8,6 +8,14 @@ namespace Application.Helpers
 {
     public static class Utils
     {
+
+        public static Guid GetUserIdFromToken(this ClaimsPrincipal user)
+        {
+            var userId = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+                throw new UnauthorizedAccessException("Invalid Token");
+            return Guid.Parse(userId);
+        }
         internal static string GenerateJwtToken(User user, DateTime expireAt, string hmacSecretKey)
         {
             var claims = new List<Claim>()

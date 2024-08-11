@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Web.API.Controllers
 {
@@ -8,7 +7,6 @@ namespace Web.API.Controllers
     [ApiVersion("2")]
     [Produces("application/json")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [AllowAnonymous]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
