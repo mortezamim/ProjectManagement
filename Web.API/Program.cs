@@ -154,6 +154,7 @@ if (app.Environment.IsDevelopment())
     {
         c.DocumentTitle = "REDOC API Documentation";
         c.SpecUrl = "/swagger/v1/swagger.json";
+        //c.SpecUrl = "/swagger/v2/swagger.json";
     });
     app.ApplyMigrations();
 }

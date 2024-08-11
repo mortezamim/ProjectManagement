@@ -3,6 +3,7 @@ using Domain.Customers;
 using Domain.Orders;
 using Domain.Primitives;
 using Domain.Products;
+using Domain.User;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWor
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
+
+    public DbSet<User> Users { get; set; }
 
     public DbSet<Customer> Customers { get; set; }
 

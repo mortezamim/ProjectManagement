@@ -59,14 +59,55 @@ namespace Web.API.Controllers
 
 
         /// <summary>
-        ///     Finds a weather forecast by its IDDDDDDDDDDDD.
+        /// Check Insurance Authorize Login , Set User Credential
         /// </summary>
+        /// <remarks>
+        /// Role: 
+        /// 
+        ///     Any
+        ///     
+        /// Response Error Logics:
+        /// 
+        ///     Type = -1: خطا در ورود به سامانه رخ داده
+        ///     
+        /// ApiResponse object:
+        /// 
+        ///     Just For Debug Purpose *DO NOT MAP* in front end
+        ///     
+        /// </remarks>
+        /// <param name="id">Cred Id</param>
         [ProducesResponseType(typeof(WeatherForecast), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        [MapToApiVersion("2")]
+        [MapToApiVersion("1")]
         [HttpGet("GetInfo")]
         public IActionResult GetWorkoutV2(Guid workoutId)
+        {
+            return Ok("new GetWorkoutByIdQuery(workoutId).Handle()");
+        }
+
+        /// <summary>
+        /// Creates a TodoItem.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>A newly created TodoItem</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Todo
+        ///     {
+        ///        "id": 1,
+        ///        "name": "Item #1",
+        ///        "isComplete": true
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost("SetInfo")]
+        public IActionResult SetInfo(Guid workoutId)
         {
             return Ok("new GetWorkoutByIdQuery(workoutId).Handle()");
         }

@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Application.Customers.Create;
 
-public sealed class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
+public sealed class RegisterUserCommandValidator : AbstractValidator<CreateCustomerCommand>
 {
-    public CreateCustomerCommandValidator(ICustomerRepository customerRepository)
+    public RegisterUserCommandValidator(ICustomerRepository customerRepository)
     {
         RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required.")
             .EmailAddress()
