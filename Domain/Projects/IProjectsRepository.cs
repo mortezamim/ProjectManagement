@@ -5,4 +5,5 @@ public interface IProjectRepository
     Task<Project?> GetByIdAsync(ProjectId id);
 
     void Add(Project project);
+    void Delete(Project project);
 }

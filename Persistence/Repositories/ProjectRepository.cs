@@ -23,4 +23,9 @@ internal sealed class ProjectRepository : IProjectRepository
     {
         _context.Projects.Add(project);
     }
+
+    public void Delete(Project project)
+    {
+        _context.Remove(project);
+    }
 }
