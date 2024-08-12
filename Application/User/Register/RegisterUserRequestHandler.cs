@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.Customers.Create;
 
-internal sealed class RegisterUserRequestHandler : IRequestHandler<RegisterUserCommand, User>
+internal sealed class RegisterUserRequestHandler : IRequestHandler<RegisterUserCommand, Guid?>
 {
     private readonly IUserRepository userRepository;
     private readonly IUnitOfWork unitOfWork;
@@ -25,7 +25,7 @@ internal sealed class RegisterUserRequestHandler : IRequestHandler<RegisterUserC
         this.userRepository = userRepository;
     }
 
-    public async Task<User> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<Guid?> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         // Validation
         var result = await validator.ValidateAsync(request);
@@ -40,7 +40,7 @@ internal sealed class RegisterUserRequestHandler : IRequestHandler<RegisterUserC
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return user;
+        return user.Id;
     }
 
 }

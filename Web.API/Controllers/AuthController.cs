@@ -48,8 +48,10 @@ namespace Web.API.Controllers
         [MapToApiVersion("1")]
         [HttpPost("Register", Name = nameof(Register))]
         public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
-            => CreatedAtAction(nameof(Login),
-                await sender.Send(new RegisterUserCommand(request.Username, request.Password, request.FirstName, request.LastName)));
+        {
+            var res = await sender.Send(new RegisterUserCommand(request.Username, request.Password, request.FirstName, request.LastName));
+            return CreatedAtAction(nameof(Login), res);
+        }
 
         /// <summary>
         ///     Login user
