@@ -115,16 +115,9 @@ namespace Web.API.Controllers
         {
             var userId = Utils.GetUserIdFromToken(User);
 
-            try
-            {
-                var command = new DeleteProjectCommand(userId, new Domain.Projects.ProjectId(id));
+            var command = new DeleteProjectCommand(userId, new Domain.Projects.ProjectId(id));
 
-                await sender.Send(command);
-            }
-            catch (EntryPointNotFoundException e)
-            {
-                return NotFound();
-            }
+            await sender.Send(command);
 
             return NoContent();
         }

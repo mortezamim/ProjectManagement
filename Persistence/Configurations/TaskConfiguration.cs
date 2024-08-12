@@ -1,4 +1,4 @@
-﻿using Domain.Task;
+﻿using Domain.TaskDetails;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

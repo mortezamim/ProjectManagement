@@ -1,7 +1,7 @@
 ﻿using Domain.Customers;
 using Domain.Orders;
 using Domain.Products;
-using Domain.Task;
+using Domain.TaskDetails;
 using Domain.User;
 using Microsoft.EntityFrameworkCore;
 

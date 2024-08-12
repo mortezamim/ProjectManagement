@@ -1,5 +1,5 @@
 ﻿using Application.Project.Get;
-using Domain.Task;
+using Domain.TaskDetails;
 using MediatR;
 
 namespace Application.Projects;

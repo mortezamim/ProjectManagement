@@ -1,6 +1,6 @@
 ﻿using Domain.Projects;
 
-namespace Domain.Task;
+namespace Domain.TaskDetails;
 
 public class TaskDetail
 {
@@ -26,4 +26,11 @@ public class TaskDetail
     public DateTime DueDate { get; private set; }
 
     public byte Status { get; private set; } = 1;
+
+    public void Update(string name, string description, byte status)
+    {
+        Name = name;
+        Description = description;
+        Status = status;
+    }
 }

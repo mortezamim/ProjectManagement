@@ -44,6 +44,11 @@ internal sealed class CreateTaskCommandHandler : IRequestHandler<CreateTaskComma
             return null;
         }
 
+        if (project.UserId != request.UserId)
+        {
+            return null;
+        }
+
         project.AddTaskItem(request.Name, request.Description, request.DueDate, request.Status);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);

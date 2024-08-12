@@ -1,6 +1,4 @@
-﻿using Domain.Products;
-
-namespace Domain.Task;
+﻿namespace Domain.TaskDetails;
 
 public interface ITaskRepository
 {

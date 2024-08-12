@@ -1,4 +1,4 @@
-﻿using Domain.Task;
+﻿using Domain.TaskDetails;
 using MediatR;
 
 namespace Application.TaskDetails.Delete;

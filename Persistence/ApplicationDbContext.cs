@@ -4,7 +4,7 @@ using Domain.Orders;
 using Domain.Primitives;
 using Domain.Products;
 using Domain.Projects;
-using Domain.Task;
+using Domain.TaskDetails;
 using Domain.User;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,4 @@
-﻿using Domain.Products;
-using Domain.Task;
+﻿using Domain.TaskDetails;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repositories;

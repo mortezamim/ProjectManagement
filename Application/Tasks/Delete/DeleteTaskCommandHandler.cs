@@ -1,6 +1,6 @@
 ﻿using Application.Data;
 using Domain.Projects;
-using Domain.Task;
+using Domain.TaskDetails;
 using MediatR;
 
 namespace Application.TaskDetails.Delete;
@@ -26,14 +26,14 @@ internal sealed class DeleteTaskCommandHandler : IRequestHandler<DeleteTaskComma
         var task = await _taskRepository.GetByIdAsync(request.TaskId);
         if (task == null)
         {
-            throw new EntryPointNotFoundException();
+            throw new TaskNotFoundException(request.TaskId);
         }
 
         var project = await _ProjectRepository.GetByIdAsync(task.ProjectId);
 
         if (project == null)
         {
-            throw new EntryPointNotFoundException();
+            throw new ProjectNotFoundException(task.ProjectId);
         }
 
         _taskRepository.Remove(task);

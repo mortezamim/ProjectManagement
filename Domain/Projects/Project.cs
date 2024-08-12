@@ -1,5 +1,4 @@
 ﻿using Domain.Primitives;
-using Domain.Task;
 using Domain.TaskDetails;
 
 namespace Domain.Projects;

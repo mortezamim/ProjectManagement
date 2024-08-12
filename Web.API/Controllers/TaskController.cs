@@ -1,5 +1,7 @@
 ﻿using Application.Helpers;
 using Application.TaskDetails.Create;
+using Application.TaskDetails.Delete;
+using Domain.TaskDetails;
 using Domain.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -58,5 +60,67 @@ namespace Web.API.Controllers
             return Created();
         }
 
+        ///// <summary>
+        /////     Delete Task
+        ///// </summary>
+        ///// <remarks>
+        ///// Sample request:
+        /////
+        /////     Delete /
+        /////
+        ///// </remarks>
+        ///// <response code="204">Task deleted successfully</response>
+        ///// <response code="401">Unauthorized access</response>
+        ///// <response code="404">Task not found</response>
+        //[ProducesResponseType(typeof(User), StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+        //[MapToApiVersion("1")]
+        //[HttpDelete("{id:guid}")]
+        //public async Task<IActionResult> DeleteTask(Guid id)
+        //{
+        //    var userId = Utils.GetUserIdFromToken(User);
+
+        //    try
+        //    {
+        //        var command = new DeleteTaskCommand(userId, new TaskId(id));
+
+        //        await sender.Send(command);
+        //    }
+        //    catch (EntryPointNotFoundException e)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return NoContent();
+        //}
+
+        /// <summary>
+        ///     Delete Task
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     Delete /
+        ///
+        /// </remarks>
+        /// <response code="204">Task deleted successfully</response>
+        /// <response code="401">Unauthorized access</response>
+        /// <response code="404">Task not found</response>
+        [ProducesResponseType(typeof(User), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+        [MapToApiVersion("1")]
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteTask(Guid id)
+        {
+            var userId = Utils.GetUserIdFromToken(User);
+
+            var command = new DeleteTaskCommand(userId, new TaskId(id));
+
+            await sender.Send(command);
+
+            return NoContent();
+        }
     }
 }
