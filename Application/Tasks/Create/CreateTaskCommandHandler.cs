@@ -33,20 +33,15 @@ internal sealed class CreateTaskCommandHandler : IRequestHandler<CreateTaskComma
         if (!result.IsValid)
             throw new Exceptions.ValidationException(result.Errors);
 
-        if (await _UserRepository.GetByIdAsync(request.UserId) is null)
-        {
-            return null;
-        }
-
         var project = await _ProjectRepository.GetByIdAsync(request.ProjectId);
         if (project is null)
         {
-            return null;
+            throw new ProjectNotFoundException(request.ProjectId);
         }
 
         if (project.UserId != request.UserId)
         {
-            return null;
+            throw new ProjectNotFoundException(request.ProjectId);
         }
 
         project.AddTaskItem(request.Name, request.Description, request.DueDate, request.Status);

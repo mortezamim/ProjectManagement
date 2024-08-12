@@ -21,12 +21,7 @@ internal sealed class DeleteProjectCommandHandler : IRequestHandler<DeleteProjec
     public async Task Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
     {
 
-        var project = await _ProjectRepository.GetByIdAsync(request.ProjectId);
-
-        if (project == null)
-        {
-            throw new EntryPointNotFoundException();
-        }
+        var project = await _ProjectRepository.GetByIdAsync(request.ProjectId) ?? throw new ProjectNotFoundException(request.ProjectId);
 
         _ProjectRepository.Delete(project);
 

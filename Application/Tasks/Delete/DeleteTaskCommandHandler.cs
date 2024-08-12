@@ -23,18 +23,11 @@ internal sealed class DeleteTaskCommandHandler : IRequestHandler<DeleteTaskComma
 
     public async Task Handle(DeleteTaskCommand request, CancellationToken cancellationToken)
     {
-        var task = await _taskRepository.GetByIdAsync(request.TaskId);
-        if (task == null)
-        {
-            throw new TaskNotFoundException(request.TaskId);
-        }
+        var task = await _taskRepository.GetByIdAsync(request.TaskId) ?? throw new TaskNotFoundException(request.TaskId);
 
-        var project = await _ProjectRepository.GetByIdAsync(task.ProjectId);
+        var project = await _ProjectRepository.GetByIdAsync(task.ProjectId) ?? throw new ProjectNotFoundException(task.ProjectId);
 
-        if (project == null)
-        {
-            throw new ProjectNotFoundException(task.ProjectId);
-        }
+        if (project.UserId != request.UserId) throw new ProjectNotFoundException(task.ProjectId);
 
         _taskRepository.Remove(task);
 
