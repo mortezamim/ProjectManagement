@@ -1,5 +1,6 @@
 ﻿using Domain.Primitives;
 using Domain.Task;
+using Domain.TaskDetails;
 
 namespace Domain.Projects;
 
@@ -33,4 +34,21 @@ public class Project : Entity
 
         return project;
     }
+
+
+    public void AddTaskItem(string name, string description, DateTime dueDate, byte status)
+    {
+        var taskItem = new TaskDetail(
+            new TaskId(Guid.NewGuid()),
+            this.Id,
+            name,
+            description,
+            dueDate,
+            status);
+
+        _tasks.Add(taskItem);
+
+        Raise(new TaskAddedDomainEvent(Guid.NewGuid(), Id, taskItem.Id));
+    }
+
 }

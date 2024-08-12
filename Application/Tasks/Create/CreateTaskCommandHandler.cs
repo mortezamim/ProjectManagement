@@ -1,5 +1,5 @@
 ﻿using Application.Data;
-using Application.Project.Create;
+using Application.TaskDetails.Create;
 using Domain.Projects;
 using Domain.User;
 using FluentValidation;
@@ -7,18 +7,18 @@ using MediatR;
 
 namespace Application.Orders.Create;
 
-internal sealed class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, Guid?>
+internal sealed class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, Guid?>
 {
     private readonly IUserRepository _UserRepository;
     private readonly IProjectRepository _ProjectRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IValidator<CreateProjectCommand> validator;
+    private readonly IValidator<CreateTaskCommand> validator;
 
-    public CreateProjectCommandHandler(
+    public CreateTaskCommandHandler(
         IUserRepository UserRepository,
         IProjectRepository ProjectRepository,
         IUnitOfWork unitOfWork,
-        IValidator<CreateProjectCommand> validator)
+        IValidator<CreateTaskCommand> validator)
     {
         _UserRepository = UserRepository;
         _ProjectRepository = ProjectRepository;
@@ -26,7 +26,7 @@ internal sealed class CreateProjectCommandHandler : IRequestHandler<CreateProjec
         this.validator = validator;
     }
 
-    public async Task<Guid?> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
+    public async Task<Guid?> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
     {
         // Validation
         var result = await validator.ValidateAsync(request, cancellationToken);
@@ -38,9 +38,13 @@ internal sealed class CreateProjectCommandHandler : IRequestHandler<CreateProjec
             return null;
         }
 
-        var project = Domain.Projects.Project.Create(request.UserId, request.Name, request.Description);
+        var project = await _ProjectRepository.GetByIdAsync(request.ProjectId);
+        if (project is null)
+        {
+            return null;
+        }
 
-        _ProjectRepository.Add(project);
+        project.AddTaskItem(request.Name, request.Description, request.DueDate, request.Status);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

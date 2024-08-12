@@ -70,8 +70,8 @@ namespace Web.API.Controllers
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
         [MapToApiVersion("1")]
-        [HttpGet("Login", Name = nameof(Login))]
-        public async Task<IActionResult> Login([FromQuery] LoginUserRequest request)
+        [HttpPost("Login", Name = nameof(Login))]
+        public async Task<IActionResult> Login([FromBody] LoginUserRequest request)
         {
             var res = await sender.Send(new LoginUserCommand(request.Username, request.Password));
             return res is null ?
