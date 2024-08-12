@@ -1,5 +1,4 @@
-﻿using Application.Abstractions.Links;
-using Domain.Products;
+﻿using Domain.Products;
 using MediatR;
 
 namespace Application.Products.GetById;
@@ -13,5 +12,4 @@ public record ProductResponse(
     string Currency,
     decimal Amount)
 {
-    public List<Link> Links { get; set; } = new();
 }

@@ -1,5 +1,4 @@
-﻿using Application.Abstractions.Links;
-using Application.Data;
+﻿using Application.Data;
 using Domain.Products;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +8,10 @@ namespace Application.Products.GetById;
 internal sealed class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductResponse>
 {
     private readonly IApplicationDbContext _context;
-    private readonly ILinkService _linkService;
 
-    public GetProductQueryHandler(IApplicationDbContext context, ILinkService linkService)
+    public GetProductQueryHandler(IApplicationDbContext context)
     {
         _context = context;
-        _linkService = linkService;
     }
 
     public async Task<ProductResponse> Handle(GetProductQuery request, CancellationToken cancellationToken)
@@ -35,32 +32,8 @@ internal sealed class GetProductQueryHandler : IRequestHandler<GetProductQuery, 
             throw new ProductNotFoundException(request.ProductId);
         }
 
-        AddLinksForProduct(product);
 
         return product;
     }
 
-    private void AddLinksForProduct(ProductResponse productResponse)
-    {
-        productResponse.Links.Add(
-            _linkService.Generate(
-                "GetProduct",
-                new { id = productResponse.Id },
-                "self",
-                "GET"));
-
-        productResponse.Links.Add(
-            _linkService.Generate(
-                "UpdateProduct",
-                new { id = productResponse.Id },
-                "update-product",
-                "PUT"));
-
-        productResponse.Links.Add(
-            _linkService.Generate(
-                "DeleteProduct",
-                new { id = productResponse.Id },
-                "delete-product",
-                "DELETE"));
-    }
 }

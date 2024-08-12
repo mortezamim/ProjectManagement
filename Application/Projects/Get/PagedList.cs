@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Application.Products.Get;
+namespace Application.Project.Get;
 
 public class PagedList<T>
 {
@@ -19,12 +19,6 @@ public class PagedList<T>
     public int PageSize { get; }
 
     public int TotalCount { get; }
-
-    public bool HasNextPage => Page * PageSize < TotalCount;
-
-    public bool HasPreviousPage => Page > 1;
-
-    //public List<Link> Links { get; set; } = new();
 
     public static async Task<PagedList<T>> CreateAsync(IQueryable<T> query, int page, int pageSize)
     {

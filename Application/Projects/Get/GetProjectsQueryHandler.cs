@@ -1,30 +1,29 @@
 ﻿using Application.Data;
-using Application.Products.GetById;
-using Domain.Products;
+using Application.Projects;
 using MediatR;
 using System.Linq.Expressions;
 
-namespace Application.Products.Get;
+namespace Application.Project.Get;
 
-internal sealed class GetProductsQueryHandler
-    : IRequestHandler<GetProductsQuery, PagedList<ProductResponse>>
+internal sealed class GetProjectsQueryHandler : IRequestHandler<GetProjectsQuery, PagedList<ProjectResponse>>
 {
     private readonly IApplicationDbContext _context;
 
-    public GetProductsQueryHandler(IApplicationDbContext context)
+    public GetProjectsQueryHandler(IApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<PagedList<ProductResponse>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    public async Task<PagedList<ProjectResponse>> Handle(GetProjectsQuery request, CancellationToken cancellationToken)
     {
-        IQueryable<Product> productsQuery = _context.Products;
+        IQueryable<Domain.Projects.Project> productsQuery = _context.Projects.Where(x => x.UserId == request.UserId);
 
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))
         {
             productsQuery = productsQuery.Where(p =>
                 p.Name.Contains(request.SearchTerm) ||
-                ((string)p.Sku).Contains(request.SearchTerm));
+                p.Description.Contains(request.SearchTerm)
+                );
         }
 
         if (request.SortOrder?.ToLower() == "desc")
@@ -37,29 +36,27 @@ internal sealed class GetProductsQueryHandler
         }
 
         var productResponsesQuery = productsQuery
-            .Select(p => new ProductResponse(
+            .Select(p => new ProjectResponse(
                 p.Id.Value,
                 p.Name,
-                p.Sku.Value,
-                p.Price.Currency,
-                p.Price.Amount));
+                p.Description,
+                p.CreateDate,
+                p.Tasks));
 
-        var products = await PagedList<ProductResponse>.CreateAsync(
+        var products = await PagedList<ProjectResponse>.CreateAsync(
             productResponsesQuery,
             request.Page,
             request.PageSize);
 
+
         return products;
     }
 
-    private static Expression<Func<Product, object>> GetSortProperty(GetProductsQuery request) =>
+    private static Expression<Func<Domain.Projects.Project, object>> GetSortProperty(GetProjectsQuery request) =>
         request.SortColumn?.ToLower() switch
         {
             "name" => product => product.Name,
-            "sku" => product => product.Sku,
-            "amount" => product => product.Price.Amount,
-            "currency" => product => product.Price.Currency,
+            "description" => product => product.Description,
             _ => product => product.Id
         };
-
 }

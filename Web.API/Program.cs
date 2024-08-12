@@ -1,5 +1,4 @@
 using Application;
-using Application.Abstractions.Links;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +11,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Web.API.Extensions;
 using Web.API.Middleware;
-using Web.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -136,7 +134,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     };
                 });
 
-builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();

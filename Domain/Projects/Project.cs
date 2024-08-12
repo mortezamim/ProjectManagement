@@ -13,6 +13,8 @@ public class Project : Entity
 
     public Guid UserId { get; private set; }
 
+    public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+
     private readonly List<TaskDetail> _tasks = new();
 
     public IReadOnlyList<TaskDetail> Tasks => _tasks.ToList();
