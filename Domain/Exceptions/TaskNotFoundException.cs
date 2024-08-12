@@ -1,4 +1,6 @@
-﻿namespace Domain.TaskDetails;
+﻿using Domain.TaskDetails;
+
+namespace Domain.Exceptions;
 
 public sealed class TaskNotFoundException : Exception
 {

@@ -2,7 +2,7 @@
 using Application.TaskDetails.Create;
 using Application.TaskDetails.Delete;
 using Application.TaskDetails.Update;
-using Domain.Products;
+using Domain.Exceptions;
 using Domain.TaskDetails;
 using Domain.User;
 using MediatR;
@@ -99,7 +99,7 @@ namespace Web.API.Controllers
             {
                 return NotFound(e.Message);
             }
-            catch (ProductNotFoundException e)
+            catch (ProjectNotFoundException e)
             {
                 return NotFound(e.Message);
             }
@@ -138,7 +138,7 @@ namespace Web.API.Controllers
             {
                 return NotFound(e.Message);
             }
-            catch (ProductNotFoundException e)
+            catch (ProjectNotFoundException e)
             {
                 return NotFound(e.Message);
             }

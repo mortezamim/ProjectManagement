@@ -1,5 +1,6 @@
 ﻿using Application.Data;
 using Application.Project.Delete;
+using Domain.Exceptions;
 using Domain.Projects;
 using MediatR;
 

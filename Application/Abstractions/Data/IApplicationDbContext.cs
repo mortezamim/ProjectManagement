@@ -1,7 +1,4 @@
-﻿using Domain.Customers;
-using Domain.Orders;
-using Domain.Products;
-using Domain.TaskDetails;
+﻿using Domain.TaskDetails;
 using Domain.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,11 +12,4 @@ public interface IApplicationDbContext
 
     DbSet<TaskDetail> Tasks { get; set; }
 
-    DbSet<Customer> Customers { get; set; }
-
-    DbSet<Order> Orders { get; set; }
-
-    DbSet<LineItem> LineItems { get; set; }
-
-    DbSet<Product> Products { get; set; }
 }

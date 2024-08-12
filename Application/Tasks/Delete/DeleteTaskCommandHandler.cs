@@ -1,4 +1,5 @@
 ﻿using Application.Data;
+using Domain.Exceptions;
 using Domain.Projects;
 using Domain.TaskDetails;
 using MediatR;

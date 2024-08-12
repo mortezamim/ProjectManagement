@@ -1,7 +1,4 @@
 ﻿using Application.Data;
-using Domain.Customers;
-using Domain.Orders;
-using Domain.Products;
 using Domain.Projects;
 using Domain.TaskDetails;
 using Domain.User;
@@ -34,12 +31,6 @@ public static class DependencyInjection
         services.AddScoped<IProjectRepository, ProjectRepository>();
 
         services.AddScoped<ITaskRepository, TaskRepository>();
-
-        services.AddScoped<ICustomerRepository, CustomerRepository>();
-
-        services.AddScoped<IOrderRepository, OrderRepository>();
-
-        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }

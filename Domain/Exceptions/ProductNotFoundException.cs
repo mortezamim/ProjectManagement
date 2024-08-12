@@ -1,4 +1,6 @@
-﻿namespace Domain.Projects;
+﻿using Domain.Projects;
+
+namespace Domain.Exceptions;
 
 public sealed class ProjectNotFoundException : Exception
 {

@@ -1,5 +1,6 @@
 ﻿using Application.Data;
 using Application.TaskDetails.Create;
+using Domain.Exceptions;
 using Domain.Projects;
 using Domain.User;
 using FluentValidation;

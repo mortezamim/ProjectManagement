@@ -1,8 +1,5 @@
 ﻿using Application.Data;
-using Domain.Customers;
-using Domain.Orders;
 using Domain.Primitives;
-using Domain.Products;
 using Domain.Projects;
 using Domain.TaskDetails;
 using Domain.User;
@@ -31,14 +28,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWor
     public DbSet<Project> Projects { get; set; }
 
     public DbSet<TaskDetail> Tasks { get; set; }
-
-    public DbSet<Customer> Customers { get; set; }
-
-    public DbSet<Order> Orders { get; set; }
-
-    public DbSet<Product> Products { get; set; }
-
-    public DbSet<LineItem> LineItems { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
