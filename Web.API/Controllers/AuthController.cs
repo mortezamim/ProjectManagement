@@ -79,5 +79,33 @@ namespace Web.API.Controllers
                 Ok(res);
         }
 
+        /// <summary>
+        ///     Login user v2
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Login
+        ///     {
+        ///        "username": "MIM",
+        ///        "password": "Super Secure Password"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns JWT access token</response>
+        /// <response code="401">Incorrect username or password</response>
+        [ProducesResponseType(typeof(User), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+        [MapToApiVersion("2")]
+        [HttpPost("Login", Name = nameof(LoginV2))]
+        public async Task<IActionResult> LoginV2([FromBody] LoginUserRequest request)
+        {
+            var res = await sender.Send(new LoginUserCommand(request.Username, request.Password));
+            return res is null ?
+                Unauthorized() :
+                Ok(res);
+        }
+
     }
 }
